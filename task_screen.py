@@ -12,7 +12,15 @@ class Task_Screen():
 		print(self.display_message)
 		
 
-	
+	def input(self, message):
+		while True:
+			ans = input(message + '')
+			if ans not in self.answers:
+				print('Please enter a valid entry.')
+				continue
+			else:
+				break
+				
 	def main_menu(self):
 		answers = ['a', 'b', 'c']
 	
