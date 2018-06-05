@@ -3,8 +3,9 @@ import os
 
 class Task_Screen():
 
-	def __init__(self, display_message, answers):
+	def __init__(self, display_message, input_prompt, answers):
 		self.display_message = display_message
+		self.input_prompt = input_prompt
 		self.answers = answers
 		
 	def display(self):
@@ -12,14 +13,14 @@ class Task_Screen():
 		print(self.display_message)
 		
 
-	def input(self, message):
+	def input(self):
 		while True:
-			ans = input(message + '')
+			ans = input(self.input_prompt + '')
 			if ans not in self.answers:
 				print('Please enter a valid entry.')
 				continue
 			else:
-				break
+				return ans
 				
 	def main_menu(self):
 		answers = ['a', 'b', 'c']
