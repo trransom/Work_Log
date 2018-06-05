@@ -1,6 +1,17 @@
 #Task Screen
+import os
 
 class Task_Screen():
+
+	def __init__(self, display_message, answers):
+		self.display_message = display_message
+		self.answers = answers
+		
+	def display(self):
+		os.system('cls')
+		print(self.display_message)
+		
+
 	
 	def main_menu(self):
 		answers = ['a', 'b', 'c']

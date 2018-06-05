@@ -1,7 +1,6 @@
 #Work log
 from task_screen import Task_Screen
 
-
-
-menu = Task_Screen()
-menu.main_menu()
+t = 'WORK LOG\nWhat would you like to do?\na) Add a new entry\nb) Search in existing entries\nc) Quit program'
+menu = Task_Screen(t)
+menu.display()
