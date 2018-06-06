@@ -4,6 +4,11 @@ import re
 from task_screen import Task_Screen
 from task import Task
 
+def create_task(display, input, regex):
+	task = Task_Screen(display, input, regex)
+	task.display()
+	return task.input()
+
 t = 'WORK LOG\nWhat would you like to do?\na) Add a new entry\nb) Search in existing entries\nc) Quit program'
 menu = Task_Screen(t, '>', '[AaBbCc]')
 menu.display()
@@ -11,14 +16,20 @@ inpt = menu.input()
 
 if inpt.lower()=='a':
 	#display the date task screen and retrieve the date.
-	task = Task_Screen('Date of the task\nPlease use DD/MM/YYYY: ', '', '([0-3][0-9])\/([0-1][0-9])\/[0-9]{3}')
-	task.display()
-	date = task.input()
-	print(date)
+	create_task('Date of the task\nPlease use DD/MM/YYYY: ', '', '([0-3][0-9])\/([0-1][0-9])\/[0-9]{3}')
+	
+	#task = Task_Screen('Date of the task\nPlease use DD/MM/YYYY: ', '', '([0-3][0-9])\/([0-1][0-9])\/[0-9]{3}')
+	#task.display()
+	#date = task.input()
+	#print(date)
 	
 	#Retrieve the title of the task
+	task1 = Task_Screen('Name of the task: ', '', '.*(\w*\s)')
+	task1.display()
+	name = task1.input()
 	
 	#Retrieve the time spent completing the task
+	
 	
 	#Prompt for notes
 	
