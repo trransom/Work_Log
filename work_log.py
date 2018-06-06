@@ -11,9 +11,9 @@ inpt = menu.input()
 
 if inpt.lower()=='a':
 	#display the date task screen and retrieve the date.
-	diff = Task_Screen('Date of the task\nPlease use DD/MM/YYYY: ', '', '([0-3][0-9])\/([0-1][0-9])\/[0-9]{3}')
-	diff.display()
-	date = diff.input()
+	task = Task_Screen('Date of the task\nPlease use DD/MM/YYYY: ', '', '([0-3][0-9])\/([0-1][0-9])\/[0-9]{3}')
+	task.display()
+	date = task.input()
 	print(date)
 	
 	#Retrieve the title of the task
