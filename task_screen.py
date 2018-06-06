@@ -16,8 +16,8 @@ class Task_Screen():
 
 	def input(self):
 		while True:
-			ans = input(self.input_prompt + '')
-			if re.match(self.answers, ans):
+			ans = input(self.input_prompt)
+			if not re.match(self.answers, ans):
 				print('Please enter a valid entry.')
 				continue
 			else:
