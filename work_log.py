@@ -29,8 +29,13 @@ if inpt.lower()=='a':
 	notes = screen_prompt('Notes (optional, allowed to leave blank): ', '>', '.*[\w\s].*')
 	
 	#Enter the task to the task log. Display a message prompting the user
+	task = Task(date, name, time, notes)
+	
 	#to press enter and to return to the main menu.
 elif inpt.lower()=='b':
-	pass
+	options = screen_prompt('Do you want to search by:\na)Exact Date\n' +
+							'b)Range of Dates\nc)Exact Search\nd)Regex Pattern' +
+							'e)Return to Menu', '>', '[AaBbCcDdEe]')
+	print(options)
 elif inpt.lower()=='c':
 	pass
