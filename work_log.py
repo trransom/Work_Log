@@ -3,6 +3,7 @@ import re
 
 from task_screen import Task_Screen
 from task import Task
+from utils import Utils
 
 def screen_prompt(display, input, regex):
 	task = Task_Screen(display, input, regex)
@@ -30,6 +31,10 @@ if inpt.lower()=='a':
 	
 	#Enter the task to the task log. Display a message prompting the user
 	task = Task(date, name, time, notes)
+	util = Utils('csv_file.csv', 'a', ['date', 'name', 'time', 'notes'])
+	
+	filename = util.filename
+	util.write_row(task.dictionary)
 	
 	#to press enter and to return to the main menu.
 elif inpt.lower()=='b':
