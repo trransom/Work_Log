@@ -1,4 +1,5 @@
 #Work log
+import os
 import re
 
 from task_screen import Task_Screen
@@ -31,16 +32,17 @@ if inpt.lower()=='a':
 	
 	#Enter the task to the task log. Display a message prompting the user
 	task = Task(date, name, time, notes)
-	util = Utils('csv_file.csv', 'a', ['date', 'name', 'time', 'notes'])
+	util = Utils('log.csv', 'a', ['date', 'name', 'time', 'notes'])
 	
-	filename = util.filename
+	if os.stat("log.csv").st_size == 0:
+		util.write_header(util.filename, util.format, util.fieldnames)
 	util.write_row(task.dictionary)
 	
 	#to press enter and to return to the main menu.
 elif inpt.lower()=='b':
 	options = screen_prompt('Do you want to search by:\na)Exact Date\n' +
-							'b)Range of Dates\nc)Exact Search\nd)Regex Pattern' +
+							'b)Range of Dates\nc)Exact Search\nd)Regex Pattern\n' +
 							'e)Return to Menu', '>', '[AaBbCcDdEe]')
-	print(options)
+	#print(options)
 elif inpt.lower()=='c':
 	pass

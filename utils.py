@@ -6,12 +6,20 @@ class Utils():
 #		self.dictionary = dictionary
 	def __init__(self, filename, format, fieldnames):
 		self.filename = filename
+		self.format = format
+		self.fieldnames = fieldnames
+#		with open(filename, format) as csvfile:
+#			self.writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+#			self.writer.writeheader()
+
+	def write_header(self, filename, format, fieldnames):
 		with open(filename, format) as csvfile:
 			self.writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 			self.writer.writeheader()
 		
 	def write_row(self, dictionary):
-		with open(self.filename, newline='') as csvfile:
+		with open(self.filename, 'a', newline='') as csvfile:
+			self.writer = csv.DictWriter(csvfile, fieldnames=self.fieldnames)
 			self.writer.writerow(dictionary)
 		
 	def print_dict(csv, num1, num2):
