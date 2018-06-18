@@ -34,6 +34,7 @@ if inpt.lower()=='a':
 	task = Task(date, name, time, notes)
 	util = Utils('log.csv', 'a', ['date', 'name', 'time', 'notes'])
 	
+	#if log.csv is empty, write a header.
 	if os.stat("log.csv").st_size == 0:
 		util.write_header(util.filename, util.format, util.fieldnames)
 	util.write_row(task.dictionary)
@@ -43,6 +44,21 @@ elif inpt.lower()=='b':
 	options = screen_prompt('Do you want to search by:\na)Exact Date\n' +
 							'b)Range of Dates\nc)Exact Search\nd)Regex Pattern\n' +
 							'e)Return to Menu', '>', '[AaBbCcDdEe]')
-	#print(options)
+	if options.lower()=='a':
+		input = screen_prompt("Enter the date\nPlease use DD/MM/YYYY:", '>', '([0-3][0-9])\/([0-1][0-9])\/[0-9]{3}')
+		file = open('log.csv', encoding='utf-8')
+		data = file.read()
+		i = 1
+		list = re.findall(input, data)
+		if list:
+#			for item in list:
+#				print(str(i) + '. ' + item + '\n')
+#				i += 1
+#			num = input('Which date would you like to look at? Please enter a number\n')
+#			while num > len(list):
+#				num = input('That number isn\'t on the list. Please try again\n')
+			
+		else: 
+			print('No match')
 elif inpt.lower()=='c':
 	pass
