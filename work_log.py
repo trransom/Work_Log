@@ -12,6 +12,19 @@ def screen_prompt(display, input, regex):
 	task = Task_Screen(display, input, regex)
 	task.display()
 	return task.input()
+	
+def task_display(num1, total):
+	number = num1
+	print('Date: ' + list[number][0] + '\n' +
+			'Title: ' + list[number][1] + '\n' +
+			'Time Spent: ' + list[number][2] + '\n' +
+			'Notes: ' + list[number][3] + '\n\n' +
+			'Result ' + str(number+1) + ' of ' + str(total) + '\n\n')
+	ans = input('[N]ext, [E]dit, [D]elete, [R]eturn to search menu')
+	if ans.lower()=='n' and number != total-1:
+		task_display(number+1, total)
+	else:
+		task_display(number, total)
 
 inpt = screen_prompt(
 			'WORK LOG\nWhat would you like to do?\na) Add a new entry\nb) Search in existing entries\nc) Quit program', 
@@ -61,12 +74,7 @@ elif inpt.lower()=='b':
 			elif inpt == row[0]:
 				list.append(row)
 		
-		print('Date: ' + list[0][0] + '\n' +
-				'Title: ' + list[0][1] + '\n' +
-				'Time Spent: ' + list[0][2] + '\n' +
-				'Notes: ' + list[0][3] + '\n\n' +
-				'Result 1 of 3\n\n' +
-				'[N]ext, [E]dit, [D]elete, [R]eturn to search menu')
+		task_display(0, len(list))
 		
 
 elif inpt.lower()=='c':
