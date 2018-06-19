@@ -4,6 +4,7 @@ import os
 import re
 import sys
 
+from datetime import datetime as dt
 from task_screen import Task_Screen
 from task import Task
 from utils import Utils
@@ -20,7 +21,7 @@ def task_display(num1, total):
 			'Time Spent: ' + list[number][2] + '\n' +
 			'Notes: ' + list[number][3] + '\n\n' +
 			'Result ' + str(number+1) + ' of ' + str(total) + '\n\n')
-	ans = input('[N]ext, [E]dit, [D]elete, [R]eturn to search menu')
+	ans = input('[N]ext, [E]dit, [D]elete, [R]eturn to search menu\n')
 	if ans.lower()=='n' and number != total-1:
 		task_display(number+1, total)
 	else:
@@ -34,7 +35,7 @@ inpt = screen_prompt(
 
 if inpt.lower()=='a':
 	#display the date task screen and retrieve the date.
-	date = screen_prompt('Date of the task\nPlease use DD/MM/YYYY: ', '', '([0-3][0-9])\/([0-1][0-9])\/[0-9]{3}')
+	date = screen_prompt('Date of the task\nPlease use MM/DD/YYYY: ', '', '([0-1][0-9])\/([0-3][0-9])\/[0-9]{4}')
 	
 	#Retrieve the title of the task
 	name = screen_prompt('Name of the task: ', '>', '.*[\w\s].*')
@@ -64,7 +65,7 @@ elif inpt.lower()=='b':
 							'b)Range of Dates\nc)Exact Search\nd)Regex Pattern\n' +
 							'e)Return to Menu', '>', '[AaBbCcDdEe]')
 	if options.lower()=='a':
-		inpt = screen_prompt("Enter the date\nPlease use DD/MM/YYYY:", '>', '([0-3][0-9])\/([0-1][0-9])\/[0-9]{3}')
+		inpt = screen_prompt("Enter the date\nPlease use MM/DD/YYYY:", '>', '([0-1][0-9])\/([0-3][0-9])\/[0-9]{4}')
 		csv_file = csv.reader(open('log.csv', 'r+'), delimiter=',')#encoding='utf-8' 
 		
 		list = []
@@ -74,6 +75,24 @@ elif inpt.lower()=='b':
 			elif inpt == row[0]:
 				list.append(row)
 		
+		task_display(0, len(list))
+		
+	elif options.lower()=='b':
+		inpt = screen_prompt('Enter the range of dates.\nPlease use MM/DD/YYYY, MM/DD/YYYY format',
+							'>', '([0-1][0-9])\/([0-3][0-9])\/[0-9]{4}, ([0-1][0-9])\/([0-3][0-9])\/[0-9]{4}')
+		csv_file = csv.reader(open('log.csv', 'r+'), delimiter=',')
+		
+		inpt = inpt.split(', ')
+		time1 = dt.strptime(inpt[0], '%m/%d/%Y')
+		time2 = dt.strptime(inpt[1], '%m/%d/%Y')
+		
+		list = []
+		for row in csv_file:
+			if len(row)==0 or row[0]=='date':
+				continue
+			#The datetime stamp here might give us errors down the road. Just FYI, keep an eye on it.
+			elif dt.strptime(row[0], '%m/%d/%Y') >= time1 and dt.strptime(row[0], '%m/%d/%Y') <= time2:
+				list.append(row)
 		task_display(0, len(list))
 		
 
