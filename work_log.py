@@ -1,6 +1,8 @@
 #Work log
+import csv
 import os
 import re
+import sys
 
 from task_screen import Task_Screen
 from task import Task
@@ -35,8 +37,12 @@ if inpt.lower()=='a':
 	util = Utils('log.csv', 'a', ['date', 'name', 'time', 'notes'])
 	
 	#if log.csv is empty, write a header.
-	if os.stat("log.csv").st_size == 0:
+	try:
+		if os.stat('log.csv').st_size == 0:
+			util.write_header(util.filename, util.format, util.fieldnames)
+	except FileNotFoundError:
 		util.write_header(util.filename, util.format, util.fieldnames)
+		
 	util.write_row(task.dictionary)
 	
 	#to press enter and to return to the main menu.
@@ -45,20 +51,23 @@ elif inpt.lower()=='b':
 							'b)Range of Dates\nc)Exact Search\nd)Regex Pattern\n' +
 							'e)Return to Menu', '>', '[AaBbCcDdEe]')
 	if options.lower()=='a':
-		input = screen_prompt("Enter the date\nPlease use DD/MM/YYYY:", '>', '([0-3][0-9])\/([0-1][0-9])\/[0-9]{3}')
-		file = open('log.csv', encoding='utf-8')
-		data = file.read()
-		i = 1
-		list = re.findall(input, data)
-		if list:
-#			for item in list:
-#				print(str(i) + '. ' + item + '\n')
-#				i += 1
-#			num = input('Which date would you like to look at? Please enter a number\n')
-#			while num > len(list):
-#				num = input('That number isn\'t on the list. Please try again\n')
-			
-		else: 
-			print('No match')
+		inpt = screen_prompt("Enter the date\nPlease use DD/MM/YYYY:", '>', '([0-3][0-9])\/([0-1][0-9])\/[0-9]{3}')
+		csv_file = csv.reader(open('log.csv', 'r+'), delimiter=',')#encoding='utf-8' 
+		
+		list = []
+		for row in csv_file:
+			if len(row)==0:
+				continue
+			elif inpt == row[0]:
+				list.append(row)
+		
+		print('Date: ' + list[0][0] + '\n' +
+				'Title: ' + list[0][1] + '\n' +
+				'Time Spent: ' + list[0][2] + '\n' +
+				'Notes: ' + list[0][3] + '\n\n' +
+				'Result 1 of 3\n\n' +
+				'[N]ext, [E]dit, [D]elete, [R]eturn to search menu')
+		
+
 elif inpt.lower()=='c':
 	pass
