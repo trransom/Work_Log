@@ -191,5 +191,4 @@ def main():
 		print('Thanks for using the Work Log program!')
 		sys.exit()
 	
-	
 main()
