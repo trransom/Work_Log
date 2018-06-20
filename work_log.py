@@ -18,6 +18,13 @@ def screen_prompt(display, input, regex):
 	task.display()
 	return task.input()
 	
+def list_search(list):
+	if list:
+		task_display(0, len(list), list)
+	else: 
+		ans = input('No results found. Press any key to return to the search menu.\n')
+		search_screen()
+	
 def search_screen():
 	'''
 		Displays the menu for choosing which searching
@@ -35,14 +42,14 @@ def search_screen():
 		inpt = screen_prompt("Enter the date\nPlease use MM/DD/YYYY:", '>', '([0-1][0-9])\/([0-3][0-9])\/[0-9]{4}')
 		csv_file = csv.reader(open('log.csv', 'r+'), delimiter=',')#encoding='utf-8' 
 		
+		#cycle through rows, adding matches to list as they are found
 		list = []
 		for row in csv_file:
 			if len(row)==0:
 				continue
 			elif inpt == row[0]:
 				list.append(row)
-		if list:
-			task_display(0, len(list), list)
+		list_search(list)
 	#prompt for range of dates
 	elif options.lower()=='b':
 		os.system('cls')
@@ -54,18 +61,15 @@ def search_screen():
 		time1 = dt.strptime(inpt[0], '%m/%d/%Y')
 		time2 = dt.strptime(inpt[1], '%m/%d/%Y')
 		
+		#cycle through rows, converting every date into a datetime for comparison.
 		list = []
 		for row in csv_file:
 			if len(row)==0 or row[0]=='date':
 				continue
-			#The datetime stamp here might give us errors down the road. Just FYI, keep an eye on it.
 			elif dt.strptime(row[0], '%m/%d/%Y') >= time1 and dt.strptime(row[0], '%m/%d/%Y') <= time2:
 				list.append(row)
 		
-		if list:
-			task_display(0, len(list), list)
-		else:
-			print('No matches found')
+		list_search(list)
 			
 	#prompt for exact search
 	elif options.lower()=='c':
@@ -82,10 +86,7 @@ def search_screen():
 					if item==inpt:
 						list.append(row)
 						continue
-		if list:
-			task_display(0, len(list), list)
-		else:
-			print('No matches found')
+		list_search(list)
 			
 	elif options.lower()=='d':
 		os.system('cls')
@@ -102,10 +103,7 @@ def search_screen():
 						list.append(row)
 						break
 						
-		if list:
-			task_display(0, len(list), list)
-		else:
-			print('No matches found')
+		list_search(list)
 		
 	elif options.lower()=='e':
 		main()
@@ -188,6 +186,7 @@ def main():
 		search_screen()
 
 	elif inpt.lower()=='c':
+		os.system('cls')
 		print('Thanks for using the Work Log program!')
 		sys.exit()
 	
