@@ -19,6 +19,12 @@ def screen_prompt(display, input, regex):
 	return task.input()
 	
 def search_screen():
+	'''
+		Displays the menu for choosing which searching
+		method you want to use, Exact Date, Range of Dates,
+		Exact Search, Regex Pattern, or to return to the
+		menu.
+	'''
 	os.system('cls')
 	options = screen_prompt('Do you want to search by:\na)Exact Date\n' +
 							'b)Range of Dates\nc)Exact Search\nd)Regex Pattern\n' +
@@ -35,8 +41,8 @@ def search_screen():
 				continue
 			elif inpt == row[0]:
 				list.append(row)
-		
-		task_display(0, len(list), list)
+		if list:
+			task_display(0, len(list), list)
 	#prompt for range of dates
 	elif options.lower()=='b':
 		os.system('cls')
@@ -129,6 +135,11 @@ def task_display(num1, total, list):
 
 
 def main():
+	'''
+		Displays the main menu and prompts
+		user for a choice to either add a task, 
+		search for a task, or to exit the program.
+	'''
 	os.system('cls')
 	inpt = screen_prompt(
 				'WORK LOG\nWhat would you like to do?\na) Add a new entry\nb) Search in existing entries\nc) Quit program', 
