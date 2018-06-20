@@ -29,11 +29,20 @@ def task_display(num1, total):
 			'Time Spent: ' + list[number][2] + '\n' +
 			'Notes: ' + list[number][3] + '\n\n' +
 			'Result ' + str(number+1) + ' of ' + str(total) + '\n\n')
-	ans = input('[N]ext, [E]dit, [D]elete, [R]eturn to search menu\n')
+			
+	ans = input('[N]ext, [B]ack, [R]eturn to search menu\n')
 	if ans.lower()=='n' and number != total-1:
 		task_display(number+1, total)
 	else:
 		task_display(number, total)
+		
+	if ans.lower()=='b' and number != 0:
+		task_display(number-1, total)
+	else:
+		task_display(number, total)
+	
+	if ans.lower()=='r':
+		pass
 
 def main():
 	inpt = screen_prompt(
