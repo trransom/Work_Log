@@ -2,15 +2,11 @@
 import csv
 
 class Utils():
-#	def __init__(self, dictionary={}):
-#		self.dictionary = dictionary
+
 	def __init__(self, filename, format, fieldnames):
 		self.filename = filename
 		self.format = format
 		self.fieldnames = fieldnames
-#		with open(filename, format) as csvfile:
-#			self.writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-#			self.writer.writeheader()
 
 	def write_header(self, filename, format, fieldnames):
 		with open(filename, format) as csvfile:
