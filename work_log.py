@@ -185,6 +185,7 @@ def main():
 	elif inpt.lower()=='b':
 		search_screen()
 
+	#Exit the program
 	elif inpt.lower()=='c':
 		os.system('cls')
 		print('Thanks for using the Work Log program!')
