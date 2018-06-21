@@ -9,6 +9,9 @@ from task_screen import Task_Screen
 from task import Task
 from utils import Utils
 
+def clear_screen():
+	os.system('cls' if os.name == 'nt' else 'clear')
+
 def screen_prompt(display, input, regex):
 	'''
 		Displays a screen message and compares input
@@ -32,13 +35,13 @@ def search_screen():
 		Exact Search, Regex Pattern, or to return to the
 		menu.
 	'''
-	os.system('cls')
+	clear_screen()
 	options = screen_prompt('Do you want to search by:\na)Exact Date\n' +
 							'b)Range of Dates\nc)Exact Search\nd)Regex Pattern\n' +
 							'e)Return to Menu', '>', '[AaBbCcDdEe]')
 	#Prompt for date search.
 	if options.lower()=='a':
-		os.system('cls')
+		clear_screen()
 		inpt = screen_prompt("Enter the date\nPlease use MM/DD/YYYY:", '>', '([0-1][0-9])\/([0-3][0-9])\/[0-9]{4}')
 		csv_file = csv.reader(open('log.csv', 'r+'), delimiter=',')#encoding='utf-8' 
 		
@@ -52,7 +55,7 @@ def search_screen():
 		list_search(list)
 	#prompt for range of dates
 	elif options.lower()=='b':
-		os.system('cls')
+		clear_screen()
 		inpt = screen_prompt('Enter the range of dates.\nPlease use MM/DD/YYYY, MM/DD/YYYY format',
 							'>', '([0-1][0-9])\/([0-3][0-9])\/[0-9]{4}, ([0-1][0-9])\/([0-3][0-9])\/[0-9]{4}')
 		csv_file = csv.reader(open('log.csv', 'r+'), delimiter=',')
@@ -73,7 +76,7 @@ def search_screen():
 			
 	#prompt for exact search
 	elif options.lower()=='c':
-		os.system('cls')
+		clear_screen()
 		inpt = screen_prompt('Enter your exact search.\n', '>', '.*')
 		csv_file = csv.reader(open('log.csv', 'r+'), delimiter=',')
 		
@@ -89,7 +92,7 @@ def search_screen():
 		list_search(list)
 			
 	elif options.lower()=='d':
-		os.system('cls')
+		clear_screen()
 		inpt = screen_prompt('Enter your regex pattern:\n', '>', '.*')
 		csv_file = csv.reader(open('log.csv', 'r+'), delimiter=',')
 		
@@ -113,7 +116,7 @@ def task_display(num1, total, list):
 		Displays a single task and allows the user
 		to cycle through a list of tasks.
 	'''
-	os.system('cls')
+	clear_screen()
 	number = num1
 	print('Date: ' + list[number][0] + '\n' +
 			'Title: ' + list[number][1] + '\n' +
@@ -138,7 +141,7 @@ def main():
 		user for a choice to either add a task, 
 		search for a task, or to exit the program.
 	'''
-	os.system('cls')
+	clear_screen()
 	inpt = screen_prompt(
 				'WORK LOG\nWhat would you like to do?\na) Add a new entry\nb) Search in existing entries\nc) Quit program', 
 				'>', 
@@ -146,23 +149,23 @@ def main():
 				)
 
 	if inpt.lower()=='a':
-		os.system('cls')
+		clear_screen()
 		#display the date task screen and retrieve the date.
 		date = screen_prompt('Date of the task\nPlease use MM/DD/YYYY: ', '', '([0-1][0-9])\/([0-3][0-9])\/[0-9]{4}')
 		
-		os.system('cls')
+		clear_screen()
 		#Retrieve the title of the task
 		name = screen_prompt('Name of the task: ', '>', '.*[\w\s].*')
 		
-		os.system('cls')
+		clear_screen()
 		#Retrieve the time spent completing the task
 		time = screen_prompt('Time Spent (rounded by minute): ', '>', '\d+')
 		
-		os.system('cls')
+		clear_screen()
 		#Prompt for notes
 		notes = screen_prompt('Notes (optional, allowed to leave blank): ', '>', '.*[\w\s].*')
 		
-		os.system('cls')
+		clear_screen()
 		#Enter the task to the task log. Display a message prompting the user
 		task = Task(date, name, time, notes)
 		util = Utils('log.csv', 'a', ['date', 'name', 'time', 'notes'])
@@ -175,7 +178,7 @@ def main():
 			util.write_header(util.filename, util.format, util.fieldnames)
 			
 		util.write_row(task.dictionary)
-		os.system('cls')
+		clear_screen()
 		i = input('Task successfully logged. Press any key to return.\n')
 		main()
 		
@@ -187,7 +190,7 @@ def main():
 
 	#Exit the program
 	elif inpt.lower()=='c':
-		os.system('cls')
+		clear_screen()
 		print('Thanks for using the Work Log program!')
 		sys.exit()
 	

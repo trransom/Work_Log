@@ -14,11 +14,14 @@ class Task_Screen:
 		self.input_prompt = input_prompt
 		self.answers = answers
 		
+	def clear_screen():
+		os.system('cls' if os.name == 'nt' else 'clear')
+		
 	def display(self):
 		'''
 			Displays the message of the object.
 		'''
-		os.system('cls')
+		clear_screen()
 		print(self.display_message)
 		
 
