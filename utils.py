@@ -1,7 +1,7 @@
 #Utils
 import csv
 
-class Utils():
+class Utils:
 
 	def __init__(self, filename, format, fieldnames):
 		'''

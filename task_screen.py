@@ -2,7 +2,7 @@
 import os
 import re
 
-class Task_Screen():
+class Task_Screen:
 
 	def __init__(self, display_message, input_prompt, answers):
 		'''

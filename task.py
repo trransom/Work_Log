@@ -1,6 +1,6 @@
 #Task object
 
-class Task():
+class Task:
 
 	def __init__(self, date, title, time_spent, notes):
 		'''
