@@ -193,5 +193,6 @@ def main():
 		clear_screen()
 		print('Thanks for using the Work Log program!')
 		sys.exit()
-	
-main()
+
+if __name__ == '__main__':
+	main()
